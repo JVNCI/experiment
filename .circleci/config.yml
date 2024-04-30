@@ -35,7 +35,7 @@ jobs:
       - run:
           name: publish-docker-image
           command: docker push $IMAGE_NAME
-      -run:
+      - run:
           name: run-docker-image
           command: docker run -p 3000:3000 -d $IMAGE_NAME
   deploy:
