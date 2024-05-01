@@ -30,6 +30,9 @@ jobs:
           name: docker-login
           command: docker login -u jeffreyvavasour -p jeffs2kul
       - run:
+          name: install mysql-server
+          command: apt-get install mysql-server
+      - run:
           name: build-docker-image
           command: docker build -t $IMAGE_NAME:latest . --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE
       - run:
