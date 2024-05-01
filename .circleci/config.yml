@@ -36,6 +36,9 @@ jobs:
           name: install mysql-server
           command: sudo apt-get install mysql-server
       - run:
+          name: start server
+          command: sudo service mysql start
+      - run:
           name: build-docker-image
           command: docker build -t jeffreyvavasour/experiment . --build-arg SECRET_KEY_BASE=SECRET_KEY
       - run:
