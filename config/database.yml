@@ -9,17 +9,49 @@
 # And be sure to use new-style password hashing:
 #   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
 #
+# development:
+#   adapter: sqlite3
+#   database: db/development.sqlite3
+#   pool: 5
+#   timeout: 5000
+
+# test:
+#   adapter: sqlite3
+#   database: db/test.sqlite3
+#   pool: 5
+#   timeout: 5000
+
+# production:
+#   adapter: mysql
+#   encoding: utf8
+#   database: your_db
+#   username: root
+#   password: your_pass
+#   socket: /tmp/mysql.sock
+#   host: your_db_ip     #defaults to 127.0.0.1
+#   port: 3306
+
 default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password: jeffs2kul
-  host: localhost
+  host: 127.0.0.1
+
+# adapter: mysql
+# database: my_db
+# hostname: 127.0.0.1
+# username: root
+# password:
+# socket: /tmp/mysql.sock
+# pool: 5
+# timeout: 5000
 
 development:
   <<: *default
   database: experiment_development
+  socket: /tmp/mysql.sock
 # development:
 #   adapter: mysql2
 #   database: experiment_development
