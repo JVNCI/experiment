@@ -37,7 +37,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password: jeffs2kul
-  host: 127.0.0.1
+  host: localhost
 
 # adapter: mysql
 # database: my_db
