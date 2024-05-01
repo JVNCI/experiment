@@ -11,9 +11,9 @@ ENV RAILS_ENV=production
 ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
 RUN gem install bundler:2.2.3
 RUN bundle install
-RUN rake db:migrate
-RUN rails assets:precompile
-CMD ["rails", "server"]
+# RUN rake db:migrate
+# RUN rails assets:precompile
+# CMD ["rails", "server"]
 
 # 2nd version vvv
 
@@ -75,26 +75,28 @@ CMD ["rails", "server"]
 # RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
-# # Final stage for app image
-# FROM base
+# Final stage for app image
+FROM base
 
-# # Install packages needed for deployment
-# RUN apt-get update -qq && \
-#     apt-get install --no-install-recommends -y curl default-mysql-client libvips && \
-#     rm -rf /var/lib/apt/lists /var/cache/apt/archives
+# Install packages needed for deployment
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y curl default-mysql-client libvips && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# # Copy built artifacts: gems, application
-# COPY --from=build /usr/local/bundle /usr/local/bundle
-# COPY --from=build /rails /rails
+# Copy built artifacts: gems, application
+COPY --from=build /usr/local/bundle /usr/local/bundle
+COPY --from=build /rails /rails
 
-# # Run and own only the runtime files as a non-root user for security
-# RUN useradd rails --create-home --shell /bin/bash && \
-#     chown -R rails:rails db log storage tmp
-# USER rails:rails
+# Run and own only the runtime files as a non-root user for security
+RUN useradd rails --create-home --shell /bin/bash && \
+    chown -R rails:rails db log storage tmp
+USER rails:rails
 
-# # Entrypoint prepares the database.
-# ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# Entrypoint prepares the database.
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# # Start the server by default, this can be overwritten at runtime
-# EXPOSE 3000
-# CMD ["./bin/rails", "server"]
+# Start the server by default, this can be overwritten at runtime
+RUN rake db:migrate
+RUN rails assets:precompile
+EXPOSE 3000
+CMD ["./bin/rails", "server"]
