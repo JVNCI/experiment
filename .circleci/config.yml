@@ -37,13 +37,13 @@ jobs:
           command: sudo apt-get install mysql-server
       - run:
           name: build-docker-image
-          command: docker build -t jeffreyvavasour/experiment . --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE
+          command: docker build -t jeffreyvavasour/experiment . --build-arg SECRET_KEY_BASE=SECRET_KEY
       - run:
           name: publish-docker-image
-          command: docker push $IMAGE_NAME
+          command: docker push jeffreyvavasour/experiment
       - run:
           name: run-docker-image
-          command: docker run -p 3000:3000 -d $IMAGE_NAME
+          command: docker run -p 3000:3000 -d jeffreyvavasour/experiment
   deploy:
     docker:
       - image: cimg/ruby:3.1.0
