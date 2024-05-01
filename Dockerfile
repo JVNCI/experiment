@@ -13,7 +13,7 @@ RUN gem install bundler:2.2.3
 RUN bundle install
 RUN rake db:migrate
 RUN rails assets:precompile
-# CMD ["rails", "server"]
+CMD ["./bin/rails", "server"]
 
 # 2nd version vvv
 
@@ -92,9 +92,9 @@ RUN rails assets:precompile
 #     chown -R rails:rails db log storage tmp
 # USER rails:rails
 
-# Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# # Entrypoint prepares the database.
+# ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start the server by default, this can be overwritten at runtime
-EXPOSE 3000
-CMD ["./bin/rails", "server"]
+# # Start the server by default, this can be overwritten at runtime
+# EXPOSE 3000
+# CMD ["./bin/rails", "server"]
