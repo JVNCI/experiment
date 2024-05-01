@@ -30,6 +30,9 @@ jobs:
           name: docker-login
           command: docker login -u jeffreyvavasour -p jeffs2kul
       - run:
+          name: update
+          command: sudo apt update
+      - run:
           name: install mysql-server
           command: sudo apt-get install mysql-server
       - run:
