@@ -11,9 +11,11 @@ ENV RAILS_ENV=production
 ENV SECRET_KEY_BASE=${SECRET_KEY_BASE}
 RUN gem install bundler:2.2.3
 RUN bundle install
-RUN apt-get update    
-RUN apt-get install mysql-server mysql-client --fix-broken --fix-missing
-RUN service mysqld start
+# Update package repository before installing mysql-server and mysql-client
+RUN apt-get update -yqq
+# Install MySQL server and client
+RUN apt-get install -yqq mysql-server mysql-client
+RUN service mysql start
 RUN rake db:migrate
 RUN rails assets:precompile
 CMD ["./bin/rails", "server"]
