@@ -13,10 +13,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: jeffs2kul
       MYSQL_DATABASE: experiment_development
-      # MYSQL_USER: rails_user
-      # MYSQL_PASSWORD: rails_password
+      MYSQL_USER: rails_user
+      MYSQL_PASSWORD: rails_password
     ports:
-      - "3006:3006"
+      - "3306:3306"
   react-client:
     build:
       context: ./react-client
