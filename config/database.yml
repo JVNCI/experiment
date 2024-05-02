@@ -51,7 +51,7 @@ default: &default
 development:
   <<: *default
   database: experiment_development
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /tmp/mysql.sock
 # development:
 #   adapter: mysql2
 #   database: experiment_development
